@@ -1,0 +1,4 @@
+{
+  "status": 400,
+  "message": "Transactions can only be made with a positive amount"
+}

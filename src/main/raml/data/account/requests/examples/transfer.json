@@ -1,0 +1,6 @@
+{
+  "payerAccountNumber": "1000001000",
+  "payeeAccountNumber": "1000001001",
+  "amount": "10",
+  "currency": "EUR"
+}

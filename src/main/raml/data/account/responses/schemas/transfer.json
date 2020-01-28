@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "id": "transfers",
+    "type": "array",
+    "properties": {
+      "account": {
+        "id": "account",
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "id": "accountNumber",
+            "type": "string"
+          },
+          "balance": {
+            "id": "balance",
+            "type": "number"
+          },
+          "currency": {
+            "id": "currency",
+            "type": "string"
+          },
+          "reservedBalance": {
+            "id": "reservedBalance",
+            "type": "number"
+          }
+        }
+      },
+      "transaction": {
+        "id": "transaction",
+        "type": "object",
+        "properties": {
+          "amount": {
+            "id": "amount",
+            "type": "number"
+          },
+          "currency": {
+            "id": "currency",
+            "type": "string"
+          },
+          "transactionType": {
+            "id": "transactionType",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

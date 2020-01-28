@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "payerAccountNumber": {
+      "id": "payerAccountNumber",
+      "type": "string"
+    },
+    "payeeAccountNumber": {
+      "id": "payeeAccountNumber",
+      "type": "string"
+    },
+    "amount": {
+      "id": "amount",
+      "type": "number"
+    },
+    "currency": {
+      "id": "currency",
+      "type": "string"
+    }
+  },
+  "required": [
+    "payerAccountNumber",
+    "payeeAccountNumber",
+    "amount",
+    "currency"
+  ]
+}

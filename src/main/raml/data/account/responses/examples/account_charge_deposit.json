@@ -1,0 +1,13 @@
+{
+  "account": {
+    "accoutnNumber": "1000001000",
+    "balance": 433.00,
+    "currency": "EUR",
+    "reservedBalance": 0.00
+  },
+  "transaction": {
+    "amount": 333,
+    "currency": "EUR",
+    "transactionType": "DEPOSIT"
+  }
+}

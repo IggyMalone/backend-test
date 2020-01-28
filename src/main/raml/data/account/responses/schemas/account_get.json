@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "account": {
+      "id": "account",
+      "type": "string"
+    },
+    "balance": {
+      "id": "balance",
+      "type": "number"
+    },
+    "currency": {
+      "id": "currency",
+      "type": "string"
+    },
+    "reservedBalance": {
+      "id": "reservedBalance",
+      "type": "number"
+    }
+  }
+}

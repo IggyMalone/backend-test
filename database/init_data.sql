@@ -1,0 +1,4 @@
+INSERT INTO accountHolder(id, name, address, status, created, updated) VALUES(1000, 'Person Personson', 'Street 1/2', 'ACTIVE', '2020-01-01', null);
+INSERT INTO account(account_number, account_holder_id, balance, currency, reserved_balance, created, updated) VALUES('1000001000', 1000, 100.0, 'EUR', 0.0, '2020-01-01', null);
+INSERT INTO accountHolder(id, name, address, status, created, updated) VALUES(1001, 'Other Personson', 'Street 4/2', 'ACTIVE', '2020-01-01', null);
+INSERT INTO account(account_number, account_holder_id, balance, currency, reserved_balance, created, updated) VALUES('1000001001', 1001, 200.0, 'EUR', 0.0, '2020-01-01', null);

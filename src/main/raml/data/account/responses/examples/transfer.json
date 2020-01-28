@@ -1,0 +1,30 @@
+{
+  "transfers": [
+    {
+      "account": {
+        "accountNumber": "1000001000",
+        "balance": 110.00,
+        "currency": "EUR",
+        "reservedBalance": 0.00
+      },
+      "transaction": {
+        "amount": 10,
+        "currency": "EUR",
+        "transactionType": "DEPOSIT"
+      }
+    },
+    {
+      "account": {
+        "accountNumber": "1000001001",
+        "balance": 190.00,
+        "currency": "EUR",
+        "reservedBalance": 0.00
+      },
+      "transaction": {
+        "amount": 10,
+        "currency": "EUR",
+        "transactionType": "CHARGE"
+      }
+    }
+  ]
+}
