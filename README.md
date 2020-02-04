@@ -7,7 +7,7 @@ gradle clean build run
 ```
 App is reachable at localhost:8000
 ### API documentation
-[RAML](./src/main/raml/api.html)
+[RAML](./src/main/raml/)
 
 ### Technology stack
 Java 8 - language used for implementation;  
