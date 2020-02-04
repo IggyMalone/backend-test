@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.ijeremic.backendtest.model.enumeration.Currency;
 import com.ijeremic.backendtest.rest.dto.AccountDto;
 import com.ijeremic.backendtest.rest.dto.AccountsTransferDto;
+import com.ijeremic.backendtest.util.JerseyInjectionBinder;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import java.math.BigDecimal;
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -39,19 +40,17 @@ public class AccountApiConcurrencyTest
   public static void setup()
       throws Exception
   {
-    RestAssured.port = Integer.valueOf(8000);
+    RestAssured.port = Integer.valueOf(8001);
     RestAssured.basePath = "/";
     RestAssured.baseURI = "http://localhost";
 
-    server = new Server(8000);
-    ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    contextHandler.setContextPath("/");
-    server.setHandler(contextHandler);
-
-    ServletHolder servletHolder = contextHandler.addServlet(ServletContainer.class, "/*");
-    servletHolder.setInitOrder(0);
-    servletHolder.setInitParameter(ServerProperties.PROVIDER_PACKAGES, "com.ijeremic.backendtest.rest");
-    servletHolder.setInitParameter("jersey.config.server.provider.classnames", AccountApi.class.getCanonicalName());
+    server = new Server(8001);
+    ResourceConfig config = new ResourceConfig();
+    config.packages("com.ijeremic.backendtest.rest");
+    config.register(new JerseyInjectionBinder());
+    ServletHolder jerseyServlet = new ServletHolder(new ServletContainer(config));
+    ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
+    contextHandler.addServlet(jerseyServlet, "/*");
 
     server.start();
   }
@@ -71,12 +70,12 @@ public class AccountApiConcurrencyTest
     AccountDto payeeAccountDto = getAccount("1000001001");
 
     int threads = 5;
-    int spins = 100;
+    int spins = 20;
     Collection<Future<Integer>> futures = new ArrayList<>(threads);
     List<Integer> returnCodes = new ArrayList<>();
     ExecutorService executorService = Executors.newFixedThreadPool(threads);
 
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < spins; ++i)
     {
       for (int t = 0; t < threads; ++t)
       {

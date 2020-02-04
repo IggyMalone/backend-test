@@ -1,10 +1,10 @@
 package com.ijeremic.backendtest.server;
 
-import com.ijeremic.backendtest.rest.AccountApi;
+import com.ijeremic.backendtest.util.JerseyInjectionBinder;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 /**
@@ -22,15 +22,12 @@ public class EmbeddedServer
       throws Exception
   {
     Server server = new Server(PORT);
-
-    ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    contextHandler.setContextPath("/");
-    server.setHandler(contextHandler);
-
-    ServletHolder servletHolder = contextHandler.addServlet(ServletContainer.class, "/*");
-    servletHolder.setInitOrder(0);
-    servletHolder.setInitParameter(ServerProperties.PROVIDER_PACKAGES, "com.ijeremic.backendtest.rest");
-    servletHolder.setInitParameter("jersey.config.server.provider.classnames", AccountApi.class.getCanonicalName());
+    ResourceConfig config = new ResourceConfig();
+    config.packages("com.ijeremic.backendtest.rest");
+    config.register(new JerseyInjectionBinder());
+    ServletHolder jerseyServlet = new ServletHolder(new ServletContainer(config));
+    ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
+    contextHandler.addServlet(jerseyServlet, "/*");
 
     try
     {

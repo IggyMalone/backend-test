@@ -15,24 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 /**
  * Created by Iggy on 27-Jan-2020
  */
-@Singleton
 public class AccountServiceImpl implements AccountService
 {
   protected AccountDao accountDao;
   protected AccountTransactionDao accountTransactionDao;
 
   @Inject
-  public AccountServiceImpl()
+  public AccountServiceImpl(AccountDao accountDao, AccountTransactionDao accountTransactionDao)
   {
-    accountDao = new AccountDao();
-    accountTransactionDao = new AccountTransactionDao();
+    this.accountDao = accountDao;
+    this.accountTransactionDao = accountTransactionDao;
   }
 
   public Account getAccountData(String accountNumber) throws Exception
@@ -60,8 +58,11 @@ public class AccountServiceImpl implements AccountService
     catch (Exception e)
     {
       e.printStackTrace();
-      accountDao.rollbackTransaction();
       throw e;
+    }
+    finally
+    {
+      accountDao.rollbackTransaction();
     }
   }
 
@@ -84,8 +85,11 @@ public class AccountServiceImpl implements AccountService
     catch (Exception e)
     {
       e.printStackTrace();
-      accountDao.rollbackTransaction();
       throw e;
+    }
+    finally
+    {
+      accountDao.rollbackTransaction();
     }
   }
 
@@ -123,8 +127,11 @@ public class AccountServiceImpl implements AccountService
     catch (Exception e)
     {
       e.printStackTrace();
-      accountDao.rollbackTransaction();
       throw e;
+    }
+    finally
+    {
+      accountDao.rollbackTransaction();
     }
   }
 

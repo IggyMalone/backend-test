@@ -124,7 +124,10 @@ public abstract class GenericDao<T, ID extends Serializable>
    */
   public void rollbackTransaction()
   {
-    entityManager.getTransaction().rollback();
+    if (entityManager.getTransaction().isActive())
+    {
+      entityManager.getTransaction().rollback();
+    }
   }
 
 }

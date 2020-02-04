@@ -33,7 +33,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class AccountServiceTest
 {
-  AccountServiceImpl service = new AccountServiceImpl();
+  AccountServiceImpl service = new AccountServiceImpl(new AccountDao(), new AccountTransactionDao());
 
   @Mock
   AccountDao accountDao;
@@ -52,7 +52,7 @@ public class AccountServiceTest
   @Test
   void serviceCreationTest()
   {
-    service = new AccountServiceImpl();
+    service = new AccountServiceImpl(new AccountDao(), new AccountTransactionDao());
     assertNotNull(service.accountDao);
     assertNotNull(service.accountTransactionDao);
   }

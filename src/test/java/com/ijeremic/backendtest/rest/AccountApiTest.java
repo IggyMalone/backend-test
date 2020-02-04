@@ -9,6 +9,7 @@ import com.ijeremic.backendtest.rest.dto.AccountsTransferDto;
 import com.ijeremic.backendtest.rest.dto.PaymentDto;
 import com.ijeremic.backendtest.rest.dto.TransferResponseDto;
 import com.ijeremic.backendtest.rest.dto.TransferResponseDtos;
+import com.ijeremic.backendtest.util.JerseyInjectionBinder;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ import java.util.List;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.server.ServerProperties;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -38,14 +39,12 @@ public class AccountApiTest
     RestAssured.baseURI = "http://localhost";
 
     server = new Server(8000);
-    ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    contextHandler.setContextPath("/");
-    server.setHandler(contextHandler);
-
-    ServletHolder servletHolder = contextHandler.addServlet(ServletContainer.class, "/*");
-    servletHolder.setInitOrder(0);
-    servletHolder.setInitParameter(ServerProperties.PROVIDER_PACKAGES, "com.ijeremic.backendtest.rest");
-    servletHolder.setInitParameter("jersey.config.server.provider.classnames", AccountApi.class.getCanonicalName());
+    ResourceConfig config = new ResourceConfig();
+    config.packages("com.ijeremic.backendtest.rest");
+    config.register(new JerseyInjectionBinder());
+    ServletHolder jerseyServlet = new ServletHolder(new ServletContainer(config));
+    ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
+    contextHandler.addServlet(jerseyServlet, "/*");
 
     server.start();
   }

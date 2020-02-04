@@ -1,7 +1,6 @@
 package com.ijeremic.backendtest.rest;
 
 import com.ijeremic.backendtest.logic.AccountService;
-import com.ijeremic.backendtest.logic.AccountServiceImpl;
 import com.ijeremic.backendtest.model.enumeration.Currency;
 import com.ijeremic.backendtest.rest.dto.AccountDto;
 import com.ijeremic.backendtest.rest.dto.AccountsTransferDto;
@@ -26,13 +25,8 @@ import javax.ws.rs.core.MediaType;
 @Path("/account")
 public class AccountApi
 {
-  private AccountService accountService;
-
   @Inject
-  public AccountApi()
-  {
-    this.accountService = new AccountServiceImpl();
-  }
+  private AccountService accountService;
 
   /**
    * Method used to expose account data

@@ -155,6 +155,7 @@ public class GenericDaoTest
   void rollbackTransactionTest()
   {
     Mockito.lenient().when(entityManager.getTransaction()).thenReturn(entityTransaction);
+    Mockito.lenient().when(entityTransaction.isActive()).thenReturn(true);
 
     dao.rollbackTransaction();
 

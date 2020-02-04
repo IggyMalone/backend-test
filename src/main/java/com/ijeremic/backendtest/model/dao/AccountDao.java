@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.persistence.LockModeType;
 
 /**
  * Created by Iggy on 19-Jan-2020
  */
-@Singleton
 public class AccountDao extends GenericDao<Account, String>
 {
+  protected static Integer LOCK_TIMEOUT = 500;
+
   @Inject
   public AccountDao(){}
 
@@ -24,7 +24,7 @@ public class AccountDao extends GenericDao<Account, String>
     try
     {
       Map<String, Object> properties = new HashMap<>();
-      properties.put("javax.persistence.lock.timeout", 3000);
+      properties.put("javax.persistence.lock.timeout", LOCK_TIMEOUT);
 
       return Optional.ofNullable(entityManager.find(Account.class, accountNumber, LockModeType.PESSIMISTIC_WRITE, properties));
     }

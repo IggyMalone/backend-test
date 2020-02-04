@@ -43,7 +43,7 @@ public class AccountDaoTest
     dao.entityManager = entityManager;
 
     properties = new HashMap<>();
-    properties.put("javax.persistence.lock.timeout", 2000);
+    properties.put("javax.persistence.lock.timeout", AccountDao.LOCK_TIMEOUT);
   }
 
   @AfterAll
